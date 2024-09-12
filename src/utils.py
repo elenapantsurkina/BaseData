@@ -1,6 +1,6 @@
 import os
 import psycopg2
-from dotenv import load_doten
+from dotenv import load_dotenv
 from src.hh_parser import HHParser
 
 load_dotenv()
@@ -20,6 +20,7 @@ def create_database(db_name):
 
 
 def create_tables(db_name):
+    """Создание таблиц employer(работодатели) и vacancy(вакансии)"""
     conn = psycopg2.connect(dbname=db_name, user=os.getenv("user"), password=os.getenv("password"),
                             host=os.getenv("host"), port=os.getenv("port"))
     with conn:
@@ -51,7 +52,7 @@ def insert_data(db_name):
                 cur.execute("INSERT INTO employer VALUES (%s, %s)", (employer_id, employer["name"]))
                 vacansies = hh.get_vacancies(employer_id)
                 for vacancy in vacansies:
-                    if not vacancy["salary"]:
+                    if not vacancy["salary"]:        # Если зарплата не указана, заполняем нули
                         salary_from = 0
                         salary_to = 0
                     else:
@@ -65,6 +66,6 @@ def insert_data(db_name):
     conn.close()
 
 
-# create_database("course_test")
-# create_tables("course_test")
-# insert_data("course_test")
+# create_database("course_work3")
+# create_tables("course_work3")
+# insert_data("course_work3")

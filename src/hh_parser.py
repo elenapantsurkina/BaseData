@@ -11,9 +11,11 @@ class HHParser:
         response = requests.get(self.__url, self.__params)
         if response.status_code == 200:
             return response.json()["items"]
+        else:
+            raise Exception(f"Ошибка {response.status_code}: {response.text}")
 
     def get_employers(self):
-        """Метод получения 10-ти компаний, у которых есть открытые вакансии"""
+        """Метод получения 10-ти работодателей, у которых есть открытые вакансии"""
         self.__url = "https://api.hh.ru/employers"
         self.__params = {
             "sort_by": "by_vacancies_open",
@@ -22,7 +24,7 @@ class HHParser:
         return self.__get_request()
 
     def get_vacancies(self, employer_id):
-        """Метод получения 50-ти вакансий из выбранных ранее 10-ти компаний"""
+        """Метод получения 50-ти вакансий для заданного работодателя"""
         self.__url = "https://api.hh.ru/vacancies"
         self.__params = {
             "employer_id": employer_id,
