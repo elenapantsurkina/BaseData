@@ -3,6 +3,7 @@ import psycopg2
 from dotenv import load_dotenv
 from src.hh_parser import HHParser
 
+
 load_dotenv()
 
 

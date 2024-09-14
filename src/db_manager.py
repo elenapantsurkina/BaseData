@@ -32,7 +32,7 @@ class DBManager:
 
     def get_all_employers(self):
         """Метод, получает список всех вакансий с указанием  компании, вакансии и зарплаты и ссылки на вакансию """
-        return self.__execute_query("SELECT * FROM employer")
+        return self.__execute_query("SELECT * FROM vacancy")
 
     def get_avg_salary(self):
         """Метод, получает среднюю зарплату по вакансиям"""
